@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head lang="en">
+  <meta charset='utf-8'>
+  <title>Consultation</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/basic.css')}}">
+</head>
+
+<body>
+  <div class="s-container">
+    <div class="s-top">
+      <span class="h2">Consultation</span>
+      <div>
+        <a class="btn btn-success btn-sm" href="/provider_profile/{{provider_email_quote}}">Provider Profile</a>
+        <a class="btn btn-danger  btn-sm" href="/logout">Logout</a>
+      </div>
+    </div>
+    <div class="h3" style="align-self: flex-start">Consult</div>
+    <div class="s-info">
+      <span>Email : </span><span>{{patient.patient}}</span><br/>
+      <span>Center : </span><span>{{patient.center}}</span><br/>
+      <span>Time : </span><span>{{patient.time}}</span><br/>
+      <span>Comment : </span><span>{{patient.comment}}</span><br/>
+      <form class="center-block" action='/consult?{{qs}}' method="POST">
+        <label>Note</label><textarea class="form-control" type="text" name="note"></textarea>
+        <label>Medication Prescribed</label><textarea class="form-control" type="text" name="medication-prescribed"></textarea>
+        <input class="btn btn-primary" type="submit" text="Save" />
+      </form>
+    </div>
+    <div class="h3" style="align-self: flex-start">Consult History</div>
+    <div class="s-bottom">
+      {% for consult in consult_list %}
+      <br/>
+      <div>
+        <span>Time : </span><span>{{consult.time}}</span>
+        <span>Note : </span><span>{{consult.note}}</span>
+        <span>Medication Prescribed : </span><span>{{consult.medication_prescribed}}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+
+</html>

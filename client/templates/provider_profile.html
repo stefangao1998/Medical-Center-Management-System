@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+<head lang="en">
+  <meta charset='utf-8'>
+  <title>Provider {{provider_email}} Profile</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/basic.css')}}">
+</head>
+
+<body>
+  <div class="s-container">
+    <div class="s-top">
+      <span class="h2">Provider Profile</span>
+      <div>
+        {% if patient_mode %}
+        <a class="btn btn-success" href="/patient_profile/{{patient_email_quote}}">Patient Profile</a>
+        {% endif %}
+        {% if not patient_mode %}
+        <a class="btn btn-success" href="/history">History</a>
+        {% endif %}
+        <a class="btn btn-danger" href="/logout">Logout</a>
+      </div>
+    </div>
+    <div class="s-info">
+      <span class="h4">Email:</span><span>{{provider_email}}</span>
+      <span class="h4">Type:</span><span>{{provider_type}}</span>
+      {% if patient_mode %}
+      <form action="/provider_profile/{{provider_email_quote}}" method="POST">
+          <label class="h4">Rate:</label><input type="number" name="rate" value="{{provider_rate}}" />
+          <input type="submit" value="Rate" />
+      </form>
+      {% endif %}
+      {% if not patient_mode %}
+      <span class="h4">Rate:</span><span>{{provider_rate}}</span>
+      {% endif %}
+    </div>
+    <div class="s-bottom">
+      <table class="table table-striped table-hover">
+        <tr>
+          <th>Health Centre</th>
+          <th>Time available</th>
+          {% if patient_mode %}
+          <th>Book</th>
+          {% endif %}
+        </tr>
+        {% for center in center_list %}
+        <tr>
+          <td><a href="/center_profile/{{center.health_centre_name_quote}}">{{center.health_centre_name}}</a></td>
+          <td><span>{{center.provider_time}}</span></td>
+          {% if patient_mode %}
+          <td><a class="btn btn-primary btn-xs" href="/book{{center.qs+'&time='+center.provider_time}}">Book</a></td>
+          {% endif %}
+          {% endfor %}
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+<script>
+    {% if success %}
+    alert('Book succeed ~');
+    {% endif %}
+  </script>
+</html>

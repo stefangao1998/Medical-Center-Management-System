@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+
+<head lang="en">
+  <meta charset='utf-8'>
+  <title>Health Care</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/basic.css')}}">
+</head>
+
+<body>
+  <div class="s-container">
+    <div class="s-top">
+      <span class="h2 s-title">Health Care</span>
+      <div>
+        <a class="btn btn-success btn-sm" href="/patient_profile/{{patient_email}}">Patient Profile</a>
+        <a class="btn btn-danger btn-sm" href="/logout">Logout</a>
+      </div>
+    </div>
+    <div class="s-info">
+      <form action="/index" method="POST">
+        <label>Health Care Center</label><input type="text" name="center" />
+        <label>Health Care Provider</label><input type="text" name="provider" />
+        <label>Service</label><input type="text" name="service" />
+        <input class="btn btn-primary btn-sm" type="submit" value="Search" />
+      </form>
+    </div>
+    <div class="s-bottom">
+      <table class="table table-striped table-hover">
+        <tr>
+          <th>Health Centre</th>
+          <th>Health Centre Rate</th>
+          <th>Health Care Provider</th>
+          <th>Health Care Provider Rate</th>
+          <th>Type</th>
+          <th>Time</th>
+        </tr>
+        {% for result in result_list %}
+        <tr>
+          <td><a href="/center_profile/{{result.health_centre_name_quote}}">{{result.health_centre_name}}</a></td>
+          <td><span>{{result.center_rate}}</span></td>
+          <td><a href="/provider_profile/{{result.provider_email_quote}}">{{result.provider_email}}</a></td>
+          <td><span>{{result.provider_rate}}</span></td>
+          <td>{{result.provider_type}}</td>
+          <td><span>{{result.provider_time}}</span></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>

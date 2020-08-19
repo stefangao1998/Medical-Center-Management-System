@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head lang="en">
+  <meta charset='utf-8'>
+  <title>Patient Profile</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/basic.css')}}">
+</head>
+
+<body>
+  <div class="s-container">
+    <div class="s-top">
+      <span class="h2 s-title">Patient Profile</span>
+      <div>
+        <a class="btn btn-success btn-sm" href="/index">Index Page</a>
+        <a class="btn btn-danger btn-sm" href="/logout">Logout</a>
+      </div>
+    </div>
+    <br/>
+    <div class="s-info">
+      <span class="h4">Patient Email</span><span class="h4">{{patient_email}}</span>
+    </div>
+    <br/>
+    <table class="s-bottom table table-striped table-hover">
+      <tr>
+        <th>Health Centre</th>
+        <th>Health Care Provider</th>
+        <th>Time</th>
+        <th>Comment</th>
+        <th>Note</th>
+        <th>Medication Prescribed</th>
+      </tr>
+      {% for available in book_history %}
+      <tr>
+        <td><a href="/center_profile/{{available.center_name_quote}}">{{available.center_name}}</a></td>
+        <td><a href="/provider_profile/{{available.provider_email_quote}}">{{available.provider_email}}</a></td>
+        <td><span>{{available.service_time}}</span></td>
+        <td>{{available.comment}}</td>
+        <td>{{available.note}}</td>
+        <td>{{available.medication_prescribed}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</body>
+
+</html>
